@@ -16,13 +16,16 @@ namespace GAME_10003_Game_Development_Foundations___2D_Game_Template__v1._2_1
         public Vector2 rectangleSize = new Vector2(50, 25);
 
         //Bouncer
-        public Vector2 BouncerLocation = new Vector2(250, 600);
-        public Vector2 BouncerSize = new Vector2(100, 25);
+        public Vector2 position = Input.GetMousePosition();
+        public Vector2 bouncerLocation = new Vector2(250, 600);
+        public Vector2 bouncerSize = new Vector2(100, 25);
+        public Vector2 bouncerLastPosition;
 
         //Ball
         public Vector2 circleLocation = new Vector2(300, 400);
         int circleRadius = 10;
 
+        //make bricks
         public void bricks()
         {
             Draw.FillColor = Color.Blue;
@@ -39,16 +42,18 @@ namespace GAME_10003_Game_Development_Foundations___2D_Game_Template__v1._2_1
             }
         }
 
+        //make ball
         public void ball()
         {
             Draw.FillColor = Color.Red;
             Draw.Circle(circleLocation, circleRadius);
         }
 
+        //make bouncer
         public void bouncer()
         {
             Draw.FillColor = Color.Magenta;
-            Draw.Rectangle(BouncerLocation, BouncerSize);
+            Draw.Rectangle(position.X, bouncerLocation.Y, bouncerSize.X, bouncerSize.Y);
         }
         
     }
