@@ -10,41 +10,41 @@ namespace GAME_10003_Game_Development_Foundations___2D_Game_Template__v1._2_1
 {
     internal class Collision
     {
-        public Vector2 circleLocation = new Vector2(300, 400);
+        
         public int circleRadius = 10;
         public float circleSpeed = 3;
 
-        public Vector2 circleLastPosition;
+        
         public float circleDirectionY = -3;
         public float circleDirectionX = 3;
 
         Shape_Creation Shape_Creation = new Shape_Creation();
+        Game Game = new Game();
         public void RectangleCollision()
         {
-            //bool isColliding = circleLocation.Y >= 400f;
-            bool isBelowScreenBottom = circleLocation.Y + circleRadius >= Window.Height;
-            bool isAboveScreenTop = circleLocation.Y - circleRadius <= 0;
-            bool isPastScreenLeft = circleLocation.X - circleRadius <= 0;
-            bool isPastScreenRight = circleLocation.X + circleRadius >= Window.Width;
+            bool isBelowScreenBottom = Game.circleLocation.Y + circleRadius >= Window.Height;
+            bool isAboveScreenTop = Game.circleLocation.Y - circleRadius <= 0;
+            bool isPastScreenLeft = Game.circleLocation.X - circleRadius <= 0;
+            bool isPastScreenRight = Game.circleLocation.X + circleRadius >= Window.Width;
             if (isBelowScreenBottom == true)
             {
                 circleDirectionY = -3f;
-                circleLocation.Y = Window.Height - circleRadius;
+                Game.circleLocation.Y = Window.Height - circleRadius;
             }
             else if (isAboveScreenTop == true)
             {
                 circleDirectionY = 3f;
-                circleLocation.Y = 0 + circleRadius;
+                Game.circleLocation.Y = 0 + circleRadius;
             }
             else if (isPastScreenLeft == true)
             {
                 circleDirectionX = 3f;
-                circleLocation.X = 0 + circleRadius;
+                Game.circleLocation.X = 0 + circleRadius;
             }
             else if (isPastScreenRight == true)
             {
                 circleDirectionX = -3f;
-                circleLocation.X = Window.Width - circleRadius;
+                Game.circleLocation.X = Window.Width - circleRadius;
             }
         }
 
@@ -55,31 +55,35 @@ namespace GAME_10003_Game_Development_Foundations___2D_Game_Template__v1._2_1
             float topEdge = Shape_Creation.rectangleLocation.Y;
             float bottomEdge = Shape_Creation.rectangleLocation.Y + Shape_Creation.rectangleSize.Y;
 
-            bool doesOverlapLeft = leftEdge < circleLocation.X + circleRadius;
-            bool doesOverlapRight = rightEdge > circleLocation.X - circleRadius;
-            bool doesOverlapTop = topEdge < circleLocation.Y + circleRadius;
-            bool doesOverlapBottom = bottomEdge > circleLocation.Y - circleRadius;
+            bool doesOverlapLeft = leftEdge < Game.circleLocation.X + circleRadius;
+            bool doesOverlapRight = rightEdge > Game.circleLocation.X - circleRadius;
+            bool doesOverlapTop = topEdge < Game.circleLocation.Y + circleRadius;
+            bool doesOverlapBottom = bottomEdge > Game.circleLocation.Y - circleRadius;
 
             bool doesOverlap = doesOverlapLeft && doesOverlapRight && doesOverlapTop && doesOverlapBottom;
 
             if (doesOverlapLeft == true)
             {
                 circleDirectionX = -3f;
+                Game.circleLocation = Game.circleLastPosition;
 
             }
             else if (doesOverlapRight == true)
             {
                 circleDirectionX = 3f;
+                Game.circleLocation = Game.circleLastPosition;
 
             }
             else if (doesOverlapTop == true)
             {
                 circleDirectionY = -3f;
+                Game.circleLocation = Game.circleLastPosition;
 
             }
             else if (doesOverlapBottom == true)
             {
                 circleDirectionY = 3f;
+                Game.circleLocation = Game.circleLastPosition;
 
             }
             return doesOverlap;
