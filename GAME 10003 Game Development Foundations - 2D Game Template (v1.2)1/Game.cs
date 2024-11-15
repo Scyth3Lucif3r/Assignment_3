@@ -29,26 +29,17 @@ namespace Game10003
 
         public void Update()
         {
-            
             collision.circleLastPosition = collision.circleLocation;
             shape_Creation.bouncerLastPosition = shape_Creation.bouncerLocation;
+
             Window.ClearBackground(Color.White);
             
             shape_Creation.bricks();
             shape_Creation.ball();
             shape_Creation.bouncer();
-
             shape_Creation.ballMovement();
 
             collision.bouncerCollision();
-            
-            collision.doesCollideWithBrick();
-            if (collision.doesCollideWithBrick() == true) 
-            {
-                
-            }
-            collision.BallCollision();
-       
         }
 
         
