@@ -39,6 +39,7 @@ namespace Game10003
             shape_Creation.bouncer();
             shape_Creation.ballMovement();
 
+            collision.BallCollision();
             collision.bouncerCollision();
         }
 
