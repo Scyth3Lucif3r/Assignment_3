@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GAME_10003_Game_Development_Foundations___2D_Game_Template__v1._2_1
 {
-    internal class Collision
+    public class Collision
     {
         public Vector2 circleLocation = new Vector2(300, 400);
         public int circleRadius = 10;
@@ -18,7 +18,7 @@ namespace GAME_10003_Game_Development_Foundations___2D_Game_Template__v1._2_1
         public float circleDirectionY = -3;
         public float circleDirectionX = 3;
 
-        Shape_Creation Shape_Creation = new Shape_Creation();
+        public Shape_Creation shape_Creation;
         public void BallCollision()
         {
             circleLastPosition = circleLocation;
@@ -50,10 +50,10 @@ namespace GAME_10003_Game_Development_Foundations___2D_Game_Template__v1._2_1
 
         public bool doesCollideWithBrick()
         {
-            float leftEdge = Shape_Creation.rectangleLocation.X;
-            float rightEdge = Shape_Creation.rectangleLocation.X + Shape_Creation.rectangleSize.X;
-            float topEdge = Shape_Creation.rectangleLocation.Y;
-            float bottomEdge = Shape_Creation.rectangleLocation.Y + Shape_Creation.rectangleSize.Y;
+            float leftEdge = shape_Creation.rectangleLocation.X;
+            float rightEdge = shape_Creation.rectangleLocation.X + shape_Creation.rectangleSize.X;
+            float topEdge = shape_Creation.rectangleLocation.Y;
+            float bottomEdge = shape_Creation.rectangleLocation.Y + shape_Creation.rectangleSize.Y;
 
             bool doesOverlapLeft = leftEdge < circleLocation.X + circleRadius;
             bool doesOverlapRight = rightEdge > circleLocation.X - circleRadius;
@@ -95,23 +95,13 @@ namespace GAME_10003_Game_Development_Foundations___2D_Game_Template__v1._2_1
 
         public void bouncerCollision()
         {
-            Shape_Creation.bouncerLastPosition = Shape_Creation.bouncerLocation;
-            bool isPastScreenRight = Shape_Creation.bouncerLocation.X + Shape_Creation.bouncerSize.X >= Window.Width;
-            if (isPastScreenRight == true)
+            bool bouncerTop = 605 >= circleLocation.Y + circleRadius && circleLocation.Y + circleRadius >= 600;
+
+            if ( bouncerTop == true && Input.GetMouseX() - 50 <= circleLocation.X && circleLocation.X <= Input.GetMouseX() + 50)
             {
-                Shape_Creation.bouncerLocation = Shape_Creation.bouncerLastPosition;
+                circleDirectionY = -3;
+                circleLocation.Y = shape_Creation.bouncerLocation.Y - circleRadius;
             }
-            /*
-            public Vector2 position = Input.GetMousePosition();
-        public Vector2 BouncerLocation = new Vector2(250, 600);
-        public Vector2 BouncerSize = new Vector2(100, 25);
-            */
-            float leftEdge = Shape_Creation.bouncerLocation.X;
-            float rightEdge = Shape_Creation.bouncerLocation.X + Shape_Creation.bouncerSize.X;
-            float topEdge = Shape_Creation.bouncerLocation.Y;
-            float bottomEdge = Shape_Creation.bouncerLocation.Y + Shape_Creation.bouncerSize.Y;
-
-
         }
     }
 }

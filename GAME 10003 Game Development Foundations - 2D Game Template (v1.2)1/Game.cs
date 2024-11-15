@@ -10,41 +10,44 @@ namespace Game10003
     /// <summary>
     ///     Your game code goes inside this class!
     /// </summary>
+    /// 
     public class Game
-    {  
+    {
+        Shape_Creation shape_Creation = new Shape_Creation();
+        Collision collision = new Collision();
 
+        
         public void Setup()
         {
             Window.SetTitle("Breakout");
 
             Window.SetSize(600, 800);
+
+            collision.shape_Creation = shape_Creation;
+            shape_Creation.collision = collision;
         }
 
         public void Update()
         {
-            Shape_Creation Shape_Creation = new Shape_Creation();
-            Collision Collision = new Collision();
-            Collision.circleLastPosition = Collision.circleLocation;
-            Shape_Creation.bouncerLastPosition = Shape_Creation.bouncerLocation;
+            
+            collision.circleLastPosition = collision.circleLocation;
+            shape_Creation.bouncerLastPosition = shape_Creation.bouncerLocation;
             Window.ClearBackground(Color.White);
             
+            shape_Creation.bricks();
+            shape_Creation.ball();
+            shape_Creation.bouncer();
 
-            Draw.FillColor = Color.Red;
-            Draw.Circle(Collision.circleLocation.X, Collision.circleLocation.Y, Collision.circleRadius);
+            shape_Creation.ballMovement();
+
+            collision.bouncerCollision();
             
-            Shape_Creation.bricks();
-            Shape_Creation.ball();
-            Shape_Creation.bouncer();
-            
-            Collision.circleLocation.Y += Collision.circleDirectionY;
-            Collision.circleLocation.X += Collision.circleDirectionX;
-            
-            Collision.doesCollideWithBrick();
-            if (Collision.doesCollideWithBrick() == true) 
+            collision.doesCollideWithBrick();
+            if (collision.doesCollideWithBrick() == true) 
             {
                 
             }
-            Collision.BallCollision();
+            collision.BallCollision();
        
         }
 
